@@ -85,7 +85,7 @@ const Contact = () => {
       setMessage("");
     } catch {
       setErrMsg(
-        "Could not send your message. Please try again or email [DANYLO_EMAIL] directly."
+        "Could not send your message. Please try again or email danylolykhach7@gmail.com directly."
       );
     } finally {
       setIsSubmitting(false);

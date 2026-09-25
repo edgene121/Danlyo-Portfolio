@@ -21,19 +21,19 @@ const ContactLeft = () => {
         <p className="text-base text-gray-400 flex flex-wrap items-center gap-2">
           Email:{" "}
           <a
-            href="mailto:[DANYLO_EMAIL]"
+            href="mailto:danylolykhach7@gmail.com"
             className="text-lightText hover:text-[#FBBF24] focus-visible:text-[#FBBF24] focus-visible:outline-none underline-offset-4 hover:underline duration-300"
           >
-            [DANYLO_EMAIL]
+            danylolykhach7@gmail.com
           </a>
         </p>
         <p className="text-base text-gray-400 flex flex-wrap items-center gap-2">
           Phone:{" "}
           <a
-            href="tel:[DANYLO_PHONE]"
+            href="tel:+48226022846"
             className="text-lightText hover:text-[#FBBF24] focus-visible:text-[#FBBF24] focus-visible:outline-none underline-offset-4 hover:underline duration-300"
           >
-            [DANYLO_PHONE]
+            +48 226022846
           </a>
         </p>
       </div>
