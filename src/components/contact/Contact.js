@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Title from "../layouts/Title";
 import ContactLeft from "./ContactLeft";
-import { WEB3FORMS_ACCESS_KEY } from "../../config/contactForm";
+import { FORMSUBMIT_ENDPOINT } from "../../config/contactForm";
 
 const Contact = () => {
   const [username, setUsername] = useState("");
@@ -52,26 +52,31 @@ const Contact = () => {
     setErrMsg("");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const form = e.currentTarget;
+      const honeypot = form.elements.namedItem("_honey");
+      const honeypotValue = honeypot && "value" in honeypot ? honeypot.value : "";
+
+      const response = await fetch(FORMSUBMIT_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
           name: username,
-          email: email,
           phone: phoneNumber,
-          subject: `Portfolio contact: ${subject}`,
+          email: email,
+          subject: subject,
           message: message,
-          from_name: "Portfolio Website",
+          _subject: "New Portfolio Contact Message",
+          _honey: honeypotValue,
+          _captcha: "false",
         }),
       });
 
       const data = await response.json();
 
-      if (!response.ok || !data.success) {
+      if (!response.ok || data.success === false || data.success === "false") {
         throw new Error(data.message || "Failed to send message");
       }
 
@@ -112,6 +117,14 @@ const Contact = () => {
               noValidate
               className="w-full flex flex-col gap-4 lgl:gap-6 py-2 lgl:py-5"
             >
+              <input
+                type="text"
+                name="_honey"
+                tabIndex="-1"
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
               {errMsg && (
                 <p
                   role="alert"
